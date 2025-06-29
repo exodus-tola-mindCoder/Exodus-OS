@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import { MapPin, Mail, Linkedin, ExternalLink, Download, Camera } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import BibleVerseComponent from '@/components/bible-verse-component';
 
 export default function AboutWindow() {
   return (
@@ -89,11 +90,20 @@ export default function AboutWindow() {
         </motion.div>
       </div>
 
-      {/* Bio */}
+      {/* Bible Verse - Inspiration */}
       <motion.div
         initial={{ y: 20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ delay: 0.7 }}
+      >
+        <BibleVerseComponent theme="purpose" variant="quote" />
+      </motion.div>
+
+      {/* Bio */}
+      <motion.div
+        initial={{ y: 20, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ delay: 0.8 }}
         className="prose prose-sm max-w-none"
       >
         <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
@@ -105,6 +115,9 @@ export default function AboutWindow() {
         <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
           My journey in tech has led me to develop applications in healthcare, education, agriculture, and e-commerce. 
           I believe in the power of technology to transform communities and create opportunities for growth and development.
+          <span className="block mt-2 text-blue-600 dark:text-blue-400 italic font-medium">
+            "Whatever you do, work at it with all your heart, as working for the Lord." - Colossians 3:23
+          </span>
         </p>
       </motion.div>
 
@@ -112,7 +125,7 @@ export default function AboutWindow() {
       <motion.div
         initial={{ y: 20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ delay: 0.8 }}
+        transition={{ delay: 0.9 }}
       >
         <h3 className="font-semibold text-gray-800 dark:text-gray-200 mb-3">Core Technologies</h3>
         <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
@@ -125,7 +138,7 @@ export default function AboutWindow() {
               key={skill}
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.9 + (index * 0.1) }}
+              transition={{ delay: 1.0 + (index * 0.1) }}
               whileHover={{ scale: 1.05, y: -2 }}
               className="bg-gray-50 dark:bg-gray-800 hover:bg-blue-50 dark:hover:bg-blue-900/30 px-3 py-2 rounded-lg text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-blue-700 dark:hover:text-blue-300 transition-all duration-200 cursor-pointer border border-gray-200 dark:border-gray-700 hover:border-blue-200 dark:hover:border-blue-600"
             >
@@ -139,7 +152,7 @@ export default function AboutWindow() {
       <motion.div
         initial={{ y: 20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ delay: 1.2 }}
+        transition={{ delay: 1.3 }}
         className="bg-blue-50 dark:bg-blue-900/30 p-4 rounded-lg border border-blue-100 dark:border-blue-800"
       >
         <h3 className="font-semibold text-blue-800 dark:text-blue-200 mb-2 flex items-center space-x-2">
@@ -156,7 +169,7 @@ export default function AboutWindow() {
       <motion.div
         initial={{ y: 20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ delay: 1.4 }}
+        transition={{ delay: 1.5 }}
         className="flex flex-wrap gap-3 pt-4 border-t border-gray-200 dark:border-gray-700"
       >
         <Button variant="outline" className="flex items-center space-x-2 hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:border-blue-300 dark:hover:border-blue-600 hover:text-blue-700 dark:hover:text-blue-300 transition-all duration-200">
@@ -174,16 +187,14 @@ export default function AboutWindow() {
         </Button>
       </motion.div>
 
-      {/* Fun Personal Touch */}
+      {/* Faith-based Personal Touch */}
       <motion.div
         initial={{ y: 20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ delay: 1.6 }}
+        transition={{ delay: 1.7 }}
         className="text-center pt-4 border-t border-gray-100 dark:border-gray-800"
       >
-        <p className="text-xs text-gray-500 dark:text-gray-400 italic">
-          "Code with purpose, live with intention" ✨
-        </p>
+        <BibleVerseComponent theme="inspiration" variant="minimal" />
       </motion.div>
     </div>
   );

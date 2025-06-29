@@ -6,6 +6,7 @@ import Taskbar from '@/components/taskbar';
 import DesktopIcon from '@/components/desktop-icon';
 import WindowManager from '@/components/window-manager';
 import QuickAccessDock from '@/components/quick-access-dock';
+import BibleVerseComponent from '@/components/bible-verse-component';
 import { projectsData } from '@/lib/projects-data';
 import { 
   User, 
@@ -199,6 +200,15 @@ export default function Desktop() {
         backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23e0e7ff' fill-opacity='0.1'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
       }}
     >
+      {/* Bible Verse Banner - Only show when no windows are open */}
+      {openWindows.length === 0 && !isMobile && (
+        <BibleVerseComponent 
+          theme="inspiration" 
+          variant="banner" 
+          className="absolute top-0 left-0 right-0 z-30" 
+        />
+      )}
+
       {/* Terminal Spotlight Effect */}
       {showTerminalSpotlight && !isMobile && openWindows.length === 0 && (
         <motion.div
@@ -297,6 +307,13 @@ export default function Desktop() {
             )}
           </div>
 
+          {/* Bible Verse for Mobile */}
+          {openWindows.length === 0 && (
+            <div className="px-4 pb-3">
+              <BibleVerseComponent theme="strength" variant="minimal" />
+            </div>
+          )}
+
           {/* Instructions - Auto-hide after 5 seconds */}
           {showMobileInstructions && (
             <motion.div
@@ -324,8 +341,8 @@ export default function Desktop() {
       {/* Desktop Icons */}
       <div className={`h-full overflow-y-auto ${
         isMobile 
-          ? showMobileInstructions ? 'pt-32 pb-20' : 'pt-20 pb-20'
-          : 'pb-20 pt-24'
+          ? showMobileInstructions ? 'pt-40 pb-20' : 'pt-32 pb-20'
+          : openWindows.length === 0 ? 'pt-32 pb-20' : 'pt-24 pb-20'
       }`}>
         <div className="min-h-full flex items-center justify-center py-6">
           {isMobile ? (
