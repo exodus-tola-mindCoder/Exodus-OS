@@ -12,7 +12,7 @@ interface DesktopIconProps {
   onClick: () => void;
 }
 
-export default function DesktopIcon({ icon: Icon, label, tooltip, onClick }: DesktopIconProps) {
+export default function DesktopIcon({ id, icon: Icon, label, tooltip, onClick }: DesktopIconProps) {
   const [showTooltip, setShowTooltip] = useState(false);
   const [tooltipPosition, setTooltipPosition] = useState<'top' | 'bottom'>('bottom');
   const [isMobile, setIsMobile] = useState(false);
@@ -123,6 +123,64 @@ export default function DesktopIcon({ icon: Icon, label, tooltip, onClick }: Des
     }
   }, [showTooltip, isMobile]);
 
+  // Get icon-specific colors that work well in both themes
+  const getIconColors = (iconId: string) => {
+    const colorMap: Record<string, { bg: string; icon: string; hover: string; border: string }> = {
+      'terminal': {
+        bg: 'from-gray-800 to-black dark:from-green-600 dark:to-green-800',
+        icon: 'text-green-400 dark:text-green-100',
+        hover: 'hover:from-green-700 hover:to-green-900 dark:hover:from-green-500 dark:hover:to-green-700',
+        border: 'border-green-500/30 dark:border-green-400/50'
+      },
+      'about': {
+        bg: 'from-blue-500 to-blue-700 dark:from-blue-600 dark:to-blue-800',
+        icon: 'text-white',
+        hover: 'hover:from-blue-600 hover:to-blue-800 dark:hover:from-blue-500 dark:hover:to-blue-700',
+        border: 'border-blue-400/30 dark:border-blue-500/50'
+      },
+      'skills': {
+        bg: 'from-emerald-500 to-emerald-700 dark:from-emerald-600 dark:to-emerald-800',
+        icon: 'text-white',
+        hover: 'hover:from-emerald-600 hover:to-emerald-800 dark:hover:from-emerald-500 dark:hover:to-emerald-700',
+        border: 'border-emerald-400/30 dark:border-emerald-500/50'
+      },
+      'contact': {
+        bg: 'from-purple-500 to-purple-700 dark:from-purple-600 dark:to-purple-800',
+        icon: 'text-white',
+        hover: 'hover:from-purple-600 hover:to-purple-800 dark:hover:from-purple-500 dark:hover:to-purple-700',
+        border: 'border-purple-400/30 dark:border-purple-500/50'
+      },
+      'github': {
+        bg: 'from-gray-700 to-gray-900 dark:from-gray-600 dark:to-gray-800',
+        icon: 'text-white',
+        hover: 'hover:from-gray-800 hover:to-black dark:hover:from-gray-500 dark:hover:to-gray-700',
+        border: 'border-gray-500/30 dark:border-gray-400/50'
+      },
+      'agrix': {
+        bg: 'from-green-500 to-green-700 dark:from-green-600 dark:to-green-800',
+        icon: 'text-white',
+        hover: 'hover:from-green-600 hover:to-green-800 dark:hover:from-green-500 dark:hover:to-green-700',
+        border: 'border-green-400/30 dark:border-green-500/50'
+      },
+      'bloodhero-ethiopia': {
+        bg: 'from-red-500 to-red-700 dark:from-red-600 dark:to-red-800',
+        icon: 'text-white',
+        hover: 'hover:from-red-600 hover:to-red-800 dark:hover:from-red-500 dark:hover:to-red-700',
+        border: 'border-red-400/30 dark:border-red-500/50'
+      },
+      'default': {
+        bg: 'from-slate-500 to-slate-700 dark:from-slate-600 dark:to-slate-800',
+        icon: 'text-white',
+        hover: 'hover:from-slate-600 hover:to-slate-800 dark:hover:from-slate-500 dark:hover:to-slate-700',
+        border: 'border-slate-400/30 dark:border-slate-500/50'
+      }
+    };
+
+    return colorMap[iconId] || colorMap['default'];
+  };
+
+  const colors = getIconColors(id);
+
   return (
     <div className="relative w-full flex justify-center" ref={iconRef}>
       <motion.div
@@ -146,10 +204,10 @@ export default function DesktopIcon({ icon: Icon, label, tooltip, onClick }: Des
               transition: { duration: 0.5 }
             } : {}}
             className={`
-              bg-gradient-to-br from-white to-gray-100 dark:from-gray-700 dark:to-gray-800 
+              bg-gradient-to-br ${colors.bg} ${colors.hover}
               rounded-xl shadow-lg flex items-center justify-center transition-all duration-300 
-              border border-gray-200/50 dark:border-gray-600/50 backdrop-blur-sm
-              group-hover:shadow-xl group-hover:border-blue-300/50 dark:group-hover:border-blue-600/50
+              border ${colors.border} backdrop-blur-sm
+              group-hover:shadow-xl group-hover:border-opacity-70
               ${isMobile 
                 ? 'w-12 h-12' 
                 : 'w-14 h-14 lg:w-16 lg:h-16'
@@ -157,8 +215,7 @@ export default function DesktopIcon({ icon: Icon, label, tooltip, onClick }: Des
             `}
           >
             <Icon className={`
-              text-gray-700 dark:text-gray-300 group-hover:text-blue-600 dark:group-hover:text-blue-400 
-              transition-colors duration-200
+              ${colors.icon} transition-all duration-200
               ${isMobile ? 'w-6 h-6' : 'w-7 h-7 lg:w-8 lg:h-8'}
             `} />
           </motion.div>
@@ -198,7 +255,7 @@ export default function DesktopIcon({ icon: Icon, label, tooltip, onClick }: Des
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
             exit={{ scale: 0 }}
-            className="absolute -top-1 -right-1 w-5 h-5 bg-blue-500 rounded-full flex items-center justify-center shadow-lg"
+            className="absolute -top-1 -right-1 w-5 h-5 bg-blue-500 rounded-full flex items-center justify-center shadow-lg border border-white dark:border-gray-800"
           >
             <span className="text-white text-xs font-bold">{tapCount}</span>
           </motion.div>
