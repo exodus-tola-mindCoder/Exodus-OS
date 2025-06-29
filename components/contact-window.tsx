@@ -51,14 +51,14 @@ export default function ContactWindow() {
   return (
     <div className="p-6 space-y-6 max-h-96 overflow-y-auto">
       {/* Header */}
-      <div className="border-b border-gray-200 pb-4">
+      <div className="border-b border-gray-200 dark:border-gray-700 pb-4">
         <div className="flex items-center space-x-3">
           <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-indigo-500 rounded-lg flex items-center justify-center">
             <Mail className="w-5 h-5 text-white" />
           </div>
           <div>
-            <h2 className="text-xl font-semibold text-gray-900">Get In Touch</h2>
-            <p className="text-gray-600 text-sm">Let's discuss your project or collaboration ideas</p>
+            <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100">Get In Touch</h2>
+            <p className="text-gray-600 dark:text-gray-400 text-sm">Let's discuss your project or collaboration ideas</p>
           </div>
         </div>
       </div>
@@ -69,33 +69,33 @@ export default function ContactWindow() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
-          className="bg-blue-50 p-4 rounded-lg border border-blue-100 text-center"
+          className="bg-blue-50 dark:bg-blue-900/30 p-4 rounded-lg border border-blue-100 dark:border-blue-800 text-center"
         >
-          <Mail className="w-6 h-6 text-blue-600 mx-auto mb-2" />
-          <h3 className="font-semibold text-blue-800 text-sm">Email</h3>
-          <p className="text-blue-700 text-xs">exodus.tola@example.com</p>
+          <Mail className="w-6 h-6 text-blue-600 dark:text-blue-400 mx-auto mb-2" />
+          <h3 className="font-semibold text-blue-800 dark:text-blue-200 text-sm">Email</h3>
+          <p className="text-blue-700 dark:text-blue-300 text-xs">exodus.tola@example.com</p>
         </motion.div>
         
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
-          className="bg-green-50 p-4 rounded-lg border border-green-100 text-center"
+          className="bg-green-50 dark:bg-green-900/30 p-4 rounded-lg border border-green-100 dark:border-green-800 text-center"
         >
-          <Phone className="w-6 h-6 text-green-600 mx-auto mb-2" />
-          <h3 className="font-semibold text-green-800 text-sm">Phone</h3>
-          <p className="text-green-700 text-xs">+251 9XX XXX XXX</p>
+          <Phone className="w-6 h-6 text-green-600 dark:text-green-400 mx-auto mb-2" />
+          <h3 className="font-semibold text-green-800 dark:text-green-200 text-sm">Phone</h3>
+          <p className="text-green-700 dark:text-green-300 text-xs">+251 9XX XXX XXX</p>
         </motion.div>
         
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
-          className="bg-purple-50 p-4 rounded-lg border border-purple-100 text-center"
+          className="bg-purple-50 dark:bg-purple-900/30 p-4 rounded-lg border border-purple-100 dark:border-purple-800 text-center"
         >
-          <MapPin className="w-6 h-6 text-purple-600 mx-auto mb-2" />
-          <h3 className="font-semibold text-purple-800 text-sm">Location</h3>
-          <p className="text-purple-700 text-xs">Addis Ababa, Ethiopia</p>
+          <MapPin className="w-6 h-6 text-purple-600 dark:text-purple-400 mx-auto mb-2" />
+          <h3 className="font-semibold text-purple-800 dark:text-purple-200 text-sm">Location</h3>
+          <p className="text-purple-700 dark:text-purple-300 text-xs">Addis Ababa, Ethiopia</p>
         </motion.div>
       </div>
 
@@ -109,7 +109,7 @@ export default function ContactWindow() {
       >
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
               Full Name *
             </label>
             <input
@@ -119,13 +119,13 @@ export default function ContactWindow() {
               value={formData.name}
               onChange={handleInputChange}
               required
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
               placeholder="Your full name"
             />
           </div>
           
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
               Email Address *
             </label>
             <input
@@ -135,14 +135,14 @@ export default function ContactWindow() {
               value={formData.email}
               onChange={handleInputChange}
               required
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+              className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
               placeholder="your.email@example.com"
             />
           </div>
         </div>
 
         <div>
-          <label htmlFor="projectType" className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor="projectType" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
             Project Type
           </label>
           <select
@@ -150,7 +150,7 @@ export default function ContactWindow() {
             name="projectType"
             value={formData.projectType}
             onChange={handleInputChange}
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
           >
             <option value="general">General Inquiry</option>
             <option value="web-development">Web Development</option>
@@ -162,7 +162,7 @@ export default function ContactWindow() {
         </div>
 
         <div>
-          <label htmlFor="subject" className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor="subject" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
             Subject *
           </label>
           <input
@@ -172,13 +172,13 @@ export default function ContactWindow() {
             value={formData.subject}
             onChange={handleInputChange}
             required
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
             placeholder="Brief description of your inquiry"
           />
         </div>
 
         <div>
-          <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor="message" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
             Message *
           </label>
           <textarea
@@ -188,7 +188,7 @@ export default function ContactWindow() {
             onChange={handleInputChange}
             required
             rows={4}
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 resize-none"
+            className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200 resize-none bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100"
             placeholder="Tell me about your project, timeline, budget, and any specific requirements..."
           />
         </div>
@@ -217,7 +217,7 @@ export default function ContactWindow() {
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="flex items-center space-x-2 p-3 bg-green-50 border border-green-200 rounded-lg text-green-800"
+            className="flex items-center space-x-2 p-3 bg-green-50 dark:bg-green-900/30 border border-green-200 dark:border-green-800 rounded-lg text-green-800 dark:text-green-200"
           >
             <CheckCircle className="w-5 h-5" />
             <span className="text-sm">Message sent successfully! I'll get back to you within 24 hours.</span>
@@ -228,7 +228,7 @@ export default function ContactWindow() {
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="flex items-center space-x-2 p-3 bg-red-50 border border-red-200 rounded-lg text-red-800"
+            className="flex items-center space-x-2 p-3 bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-800 rounded-lg text-red-800 dark:text-red-200"
           >
             <AlertCircle className="w-5 h-5" />
             <span className="text-sm">Failed to send message. Please try again or contact me directly.</span>
@@ -241,17 +241,17 @@ export default function ContactWindow() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.6 }}
-        className="pt-4 border-t border-gray-200"
+        className="pt-4 border-t border-gray-200 dark:border-gray-700"
       >
-        <h3 className="font-semibold text-gray-800 mb-3 text-center">Connect on Social Media</h3>
+        <h3 className="font-semibold text-gray-800 dark:text-gray-200 mb-3 text-center">Connect on Social Media</h3>
         <div className="flex justify-center space-x-4">
-          <Button variant="outline" size="sm" className="flex items-center space-x-2">
-            <Linkedin className="w-4 h-4 text-blue-600" />
+          <Button variant="outline" size="sm" className="flex items-center space-x-2 hover:bg-blue-50 dark:hover:bg-blue-900/30">
+            <Linkedin className="w-4 h-4 text-blue-600 dark:text-blue-400" />
             <span>LinkedIn</span>
             <ExternalLink className="w-3 h-3" />
           </Button>
-          <Button variant="outline" size="sm" className="flex items-center space-x-2">
-            <Github className="w-4 h-4 text-gray-800" />
+          <Button variant="outline" size="sm" className="flex items-center space-x-2 hover:bg-gray-50 dark:hover:bg-gray-800">
+            <Github className="w-4 h-4 text-gray-800 dark:text-gray-200" />
             <span>GitHub</span>
             <ExternalLink className="w-3 h-3" />
           </Button>
@@ -263,10 +263,10 @@ export default function ContactWindow() {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.8 }}
-        className="bg-blue-50 p-4 rounded-lg border border-blue-200 text-center"
+        className="bg-blue-50 dark:bg-blue-900/30 p-4 rounded-lg border border-blue-200 dark:border-blue-800 text-center"
       >
-        <h4 className="font-semibold text-blue-800 mb-2">⚡ Quick Response Guarantee</h4>
-        <p className="text-blue-700 text-sm">
+        <h4 className="font-semibold text-blue-800 dark:text-blue-200 mb-2">⚡ Quick Response Guarantee</h4>
+        <p className="text-blue-700 dark:text-blue-300 text-sm">
           I typically respond to all inquiries within 24 hours. For urgent projects, 
           feel free to mention it in your message for priority handling.
         </p>
