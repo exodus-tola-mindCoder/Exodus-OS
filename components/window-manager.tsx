@@ -1,6 +1,7 @@
 'use client';
 
 import { motion, AnimatePresence } from 'framer-motion';
+import { useEffect } from 'react';
 import Window from '@/components/window';
 import ProjectWindow from '@/components/project-window';
 import AboutWindow from '@/components/about-window';
@@ -37,6 +38,13 @@ export default function WindowManager({
   onFocusWindow,
   onBackToDesktop,
 }: WindowManagerProps) {
+  // Auto-focus the first window when opened
+  useEffect(() => {
+    if (openWindows.length > 0 && !activeWindow) {
+      onFocusWindow(openWindows[0]);
+    }
+  }, [openWindows, activeWindow, onFocusWindow]);
+
   const getWindowContent = (windowId: string) => {
     switch (windowId) {
       case 'about':
