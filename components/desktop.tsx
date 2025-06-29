@@ -149,22 +149,43 @@ export default function Desktop() {
     { id: 'recycle-bin', icon: Trash2, label: isMobile ? 'Trash' : 'Recycle', tooltip: '🗑️ Abandoned projects and experiments' },
   ];
 
-  // Arrange icons with terminal prominently featured
-  const allIcons = [
-    ...essentialIcons.slice(0, 3), // First 3 essential
-    terminalIcon, // Terminal prominently placed
-    ...essentialIcons.slice(3), // Rest of essential
-    ...professionalIcons,
-    ...projectIcons,
-    ...funIcons
-  ];
+  // Create circular layout with terminal at center
+  const createCircularLayout = () => {
+    const allOtherIcons = [
+      ...essentialIcons,
+      ...professionalIcons,
+      ...projectIcons,
+      ...funIcons
+    ];
+
+    // For mobile, use a simpler grid layout
+    if (isMobile) {
+      return [
+        ...essentialIcons.slice(0, 2),
+        terminalIcon,
+        ...essentialIcons.slice(2, 4),
+        ...professionalIcons.slice(0, 4),
+        ...projectIcons,
+        ...funIcons
+      ];
+    }
+
+    // Desktop: Create circular arrangement
+    const centerIcon = terminalIcon;
+    const surroundingIcons = allOtherIcons;
+    
+    return { centerIcon, surroundingIcons };
+  };
+
+  const layout = createCircularLayout();
 
   // Responsive grid configuration
   const getGridConfig = () => {
     if (isMobile) {
       return 'grid-cols-3 gap-4 px-4';
     } else {
-      return 'grid-cols-4 sm:grid-cols-5 md:grid-cols-6 lg:grid-cols-7 xl:grid-cols-8 2xl:grid-cols-10 gap-6 px-8';
+      // For desktop, we'll use a custom circular layout
+      return 'relative';
     }
   };
 
@@ -190,17 +211,17 @@ export default function Desktop() {
           {/* Spotlight overlay */}
           <div className="absolute inset-0 bg-black/40" />
           
-          {/* Spotlight circle - positioned where terminal icon would be */}
+          {/* Spotlight circle - positioned at center */}
           <motion.div
             animate={{ 
-              scale: [1, 1.1, 1],
-              opacity: [0.8, 1, 0.8]
+              scale: [1, 1.2, 1],
+              opacity: [0.6, 1, 0.6]
             }}
-            transition={{ duration: 2, repeat: Infinity }}
-            className="absolute w-32 h-32 rounded-full bg-gradient-to-r from-green-400/30 to-blue-400/30 blur-xl"
+            transition={{ duration: 3, repeat: Infinity }}
+            className="absolute w-40 h-40 rounded-full bg-gradient-to-r from-green-400/40 to-blue-400/40 blur-xl"
             style={{
               top: '50%',
-              left: '25%', // Approximate position of 4th icon in grid
+              left: '50%',
               transform: 'translate(-50%, -50%)'
             }}
           />
@@ -210,9 +231,9 @@ export default function Desktop() {
             initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 3, duration: 0.8 }}
-            className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 pointer-events-auto"
+            className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 pointer-events-auto mt-24"
           >
-            <div className="bg-black/90 text-green-400 px-6 py-4 rounded-lg border border-green-500/50 shadow-2xl backdrop-blur-sm">
+            <div className="bg-black/90 text-green-400 px-6 py-4 rounded-lg border border-green-500/50 shadow-2xl backdrop-blur-sm max-w-md">
               <div className="flex items-center space-x-3 mb-2">
                 <Terminal className="w-6 h-6 text-green-400 animate-pulse" />
                 <span className="text-lg font-bold">Featured: Interactive Terminal</span>
@@ -223,8 +244,8 @@ export default function Desktop() {
               <div className="space-y-1 text-xs text-green-200 font-mono">
                 <p>• <span className="text-yellow-400">matrix</span> - Enter the Matrix</p>
                 <p>• <span className="text-yellow-400">hack</span> - Hacking simulation</p>
-                <p>• <span className="text-yellow-400">skills --visual</span> - Interactive skills</p>
-                <p>• <span className="text-yellow-400">projects --tree</span> - Project overview</p>
+                <p>• <span className="text-yellow-400">skills</span> - Interactive skills</p>
+                <p>• <span className="text-yellow-400">projects</span> - Project overview</p>
               </div>
               <motion.div
                 animate={{ opacity: [0.5, 1, 0.5] }}
@@ -286,7 +307,7 @@ export default function Desktop() {
             >
               <div className="bg-green-50 dark:bg-green-900/30 p-3 rounded-lg border border-green-200/50 dark:border-green-700/50">
                 <div className="flex items-center space-x-2 mb-2">
-                  <Terminal className="w-5 h-5 text-green-600" />
+                  <Terminal className="w-5 h-5 text-green-600 dark:text-green-400" />
                   <span className="text-green-800 dark:text-green-200 font-medium text-sm">Try the Terminal!</span>
                 </div>
                 <div className="space-y-1 text-xs text-green-700 dark:text-green-300">
@@ -297,61 +318,144 @@ export default function Desktop() {
               </div>
             </motion.div>
           )}
-        </motion.div>
+        </div>
       )}
 
-      {/* Desktop Icons Grid */}
+      {/* Desktop Icons */}
       <div className={`h-full overflow-y-auto ${
         isMobile 
           ? showMobileInstructions ? 'pt-32 pb-20' : 'pt-20 pb-20'
           : 'pb-20 pt-24'
       }`}>
-        <div className="min-h-full flex items-start justify-center py-6">
-          <motion.div 
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className={`grid ${getGridConfig()} justify-items-center w-full max-w-7xl`}
-          >
-            {allIcons.map((iconData, index) => (
+        <div className="min-h-full flex items-center justify-center py-6">
+          {isMobile ? (
+            // Mobile: Simple grid layout
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className={`grid ${getGridConfig()} justify-items-center w-full max-w-7xl`}
+            >
+              {(layout as any[]).map((iconData, index) => (
+                <motion.div
+                  key={iconData.id}
+                  initial={{ opacity: 0, y: 30, scale: 0.8 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  transition={{ 
+                    duration: 0.4, 
+                    delay: 0.1 + (index * 0.03),
+                    type: "spring",
+                    stiffness: 120
+                  }}
+                  className="w-full"
+                >
+                  <DesktopIcon
+                    id={iconData.id}
+                    icon={iconData.icon}
+                    label={iconData.label}
+                    tooltip={iconData.tooltip}
+                    onClick={() => handleIconClick(iconData.id)}
+                  />
+                </motion.div>
+              ))}
+            </motion.div>
+          ) : (
+            // Desktop: Circular layout with terminal at center
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="relative w-full max-w-6xl h-full flex items-center justify-center"
+            >
+              {/* Center Terminal Icon */}
               <motion.div
-                key={iconData.id}
-                initial={{ opacity: 0, y: 30, scale: 0.8 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
+                initial={{ opacity: 0, scale: 0.5 }}
+                animate={{ opacity: 1, scale: 1 }}
                 transition={{ 
-                  duration: 0.4, 
-                  delay: 0.1 + (index * 0.03),
+                  duration: 0.6, 
+                  delay: 0.5,
                   type: "spring",
                   stiffness: 120
                 }}
-                className={`w-full ${
-                  iconData.id === 'terminal' && showTerminalSpotlight && !isMobile 
-                    ? 'relative z-40' 
-                    : ''
+                className={`absolute z-40 ${
+                  showTerminalSpotlight ? 'z-50' : ''
                 }`}
+                style={{
+                  top: '50%',
+                  left: '50%',
+                  transform: 'translate(-50%, -50%)'
+                }}
               >
-                <DesktopIcon
-                  id={iconData.id}
-                  icon={iconData.icon}
-                  label={iconData.label}
-                  tooltip={iconData.tooltip}
-                  onClick={() => handleIconClick(iconData.id)}
-                />
-                
-                {/* Special glow effect for terminal */}
-                {iconData.id === 'terminal' && showTerminalSpotlight && !isMobile && (
-                  <motion.div
-                    animate={{ 
-                      scale: [1, 1.2, 1],
-                      opacity: [0.3, 0.6, 0.3]
-                    }}
-                    transition={{ duration: 2, repeat: Infinity }}
-                    className="absolute inset-0 bg-gradient-to-r from-green-400/20 to-blue-400/20 rounded-xl blur-lg -z-10"
+                <div className="relative">
+                  <DesktopIcon
+                    id={(layout as any).centerIcon.id}
+                    icon={(layout as any).centerIcon.icon}
+                    label={(layout as any).centerIcon.label}
+                    tooltip={(layout as any).centerIcon.tooltip}
+                    onClick={() => handleIconClick((layout as any).centerIcon.id)}
                   />
-                )}
+                  
+                  {/* Special glow effect for terminal */}
+                  {showTerminalSpotlight && (
+                    <motion.div
+                      animate={{ 
+                        scale: [1, 1.3, 1],
+                        opacity: [0.3, 0.7, 0.3]
+                      }}
+                      transition={{ duration: 3, repeat: Infinity }}
+                      className="absolute inset-0 bg-gradient-to-r from-green-400/30 to-blue-400/30 rounded-xl blur-lg -z-10"
+                    />
+                  )}
+                  
+                  {/* Terminal highlight ring */}
+                  <motion.div
+                    animate={{ rotate: 360 }}
+                    transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                    className="absolute inset-0 rounded-xl border-2 border-dashed border-green-400/40 dark:border-green-500/40 -z-10"
+                    style={{ transform: 'translate(-50%, -50%) scale(1.2)' }}
+                  />
+                </div>
               </motion.div>
-            ))}
-          </motion.div>
+
+              {/* Surrounding Icons in Circular Pattern */}
+              {(layout as any).surroundingIcons.map((iconData: any, index: number) => {
+                const totalIcons = (layout as any).surroundingIcons.length;
+                const angle = (index * 360) / totalIcons;
+                const radius = 280; // Distance from center
+                
+                const x = Math.cos((angle - 90) * Math.PI / 180) * radius;
+                const y = Math.sin((angle - 90) * Math.PI / 180) * radius;
+
+                return (
+                  <motion.div
+                    key={iconData.id}
+                    initial={{ opacity: 0, scale: 0.5, x: 0, y: 0 }}
+                    animate={{ opacity: 1, scale: 1, x, y }}
+                    transition={{ 
+                      duration: 0.6, 
+                      delay: 0.7 + (index * 0.05),
+                      type: "spring",
+                      stiffness: 100
+                    }}
+                    className="absolute"
+                    style={{
+                      top: '50%',
+                      left: '50%',
+                      transform: 'translate(-50%, -50%)'
+                    }}
+                  >
+                    <DesktopIcon
+                      id={iconData.id}
+                      icon={iconData.icon}
+                      label={iconData.label}
+                      tooltip={iconData.tooltip}
+                      onClick={() => handleIconClick(iconData.id)}
+                    />
+                  </motion.div>
+                );
+              })}
+            </motion.div>
+          )}
         </div>
       </div>
 
