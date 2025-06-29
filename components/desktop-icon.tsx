@@ -149,7 +149,7 @@ export default function DesktopIcon({ icon: Icon, label, tooltip, onClick }: Des
               bg-gradient-to-br from-white to-gray-100 dark:from-gray-700 dark:to-gray-800 
               rounded-xl shadow-lg flex items-center justify-center transition-all duration-300 
               border border-gray-200/50 dark:border-gray-600/50 backdrop-blur-sm
-              group-hover:shadow-xl
+              group-hover:shadow-xl group-hover:border-blue-300/50 dark:group-hover:border-blue-600/50
               ${isMobile 
                 ? 'w-12 h-12' 
                 : 'w-14 h-14 lg:w-16 lg:h-16'
@@ -198,7 +198,7 @@ export default function DesktopIcon({ icon: Icon, label, tooltip, onClick }: Des
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
             exit={{ scale: 0 }}
-            className="absolute -top-1 -right-1 w-5 h-5 bg-blue-500 rounded-full flex items-center justify-center"
+            className="absolute -top-1 -right-1 w-5 h-5 bg-blue-500 rounded-full flex items-center justify-center shadow-lg"
           >
             <span className="text-white text-xs font-bold">{tapCount}</span>
           </motion.div>

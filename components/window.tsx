@@ -163,7 +163,7 @@ export default function Window({
           whileHover={{ scale: 1.1, rotate: 5 }}
           whileTap={{ scale: 0.95 }}
           onClick={handleBackToDesktop}
-          className="flex items-center space-x-2 px-3 py-1.5 bg-blue-100 dark:bg-blue-900/50 hover:bg-blue-200 dark:hover:bg-blue-800/70 text-blue-700 dark:text-blue-300 rounded-lg transition-all duration-200 text-sm font-medium shadow-sm hover:shadow-md"
+          className="flex items-center space-x-2 px-3 py-1.5 bg-blue-100 dark:bg-blue-900/50 hover:bg-blue-200 dark:hover:bg-blue-800/70 text-blue-700 dark:text-blue-300 rounded-lg transition-all duration-200 text-sm font-medium shadow-sm hover:shadow-md border border-blue-200 dark:border-blue-700"
           title="Back to Desktop"
         >
           <Home className="w-4 h-4" />

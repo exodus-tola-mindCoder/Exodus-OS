@@ -20,11 +20,7 @@ export default function Taskbar({ openWindows, activeWindow, onWindowClick, onBa
   const [showLanguageSwitcher, setShowLanguageSwitcher] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [showMobileMenu, setShowMobileMenu] = useState(false);
-  
-  const currentTime = new Date().toLocaleTimeString([], { 
-    hour: '2-digit', 
-    minute: '2-digit' 
-  });
+  const [currentTime, setCurrentTime] = useState('');
 
   useEffect(() => {
     const checkMobile = () => {
@@ -34,6 +30,19 @@ export default function Taskbar({ openWindows, activeWindow, onWindowClick, onBa
     checkMobile();
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  useEffect(() => {
+    const updateTime = () => {
+      setCurrentTime(new Date().toLocaleTimeString([], { 
+        hour: '2-digit', 
+        minute: '2-digit' 
+      }));
+    };
+
+    updateTime();
+    const interval = setInterval(updateTime, 1000);
+    return () => clearInterval(interval);
   }, []);
 
   const getWindowDisplayName = (windowId: string) => {
@@ -83,7 +92,7 @@ export default function Taskbar({ openWindows, activeWindow, onWindowClick, onBa
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={onBackToDesktop}
-            className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center text-white font-bold shadow-lg hover:shadow-xl transition-shadow duration-200 text-sm"
+            className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center text-white font-bold shadow-lg hover:shadow-xl transition-shadow duration-200 text-sm border border-blue-400/30"
             title="Back to Desktop"
           >
             EOS
@@ -98,7 +107,7 @@ export default function Taskbar({ openWindows, activeWindow, onWindowClick, onBa
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={onBackToDesktop}
-              className="flex items-center space-x-2 px-3 py-2 bg-green-100 dark:bg-green-900/50 hover:bg-green-200 dark:hover:bg-green-800/70 text-green-700 dark:text-green-300 rounded-lg transition-all duration-200 text-sm font-medium shadow-sm hover:shadow-md"
+              className="flex items-center space-x-2 px-3 py-2 bg-green-100 dark:bg-green-900/50 hover:bg-green-200 dark:hover:bg-green-800/70 text-green-700 dark:text-green-300 rounded-lg transition-all duration-200 text-sm font-medium shadow-sm hover:shadow-md border border-green-200 dark:border-green-700"
             >
               <Home className="w-4 h-4" />
               <span className="hidden sm:inline">Desktop</span>
@@ -111,7 +120,7 @@ export default function Taskbar({ openWindows, activeWindow, onWindowClick, onBa
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => setShowMobileMenu(!showMobileMenu)}
-              className="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+              className="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors border border-gray-200 dark:border-gray-700"
             >
               {showMobileMenu ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
             </motion.button>
@@ -132,10 +141,10 @@ export default function Taskbar({ openWindows, activeWindow, onWindowClick, onBa
                   whileTap={{ scale: 0.95 }}
                   onClick={() => onWindowClick(windowId)}
                   className={`
-                    px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 whitespace-nowrap
+                    px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 whitespace-nowrap border
                     ${activeWindow === windowId 
-                      ? 'bg-blue-100 dark:bg-blue-900/50 text-blue-800 dark:text-blue-200 border border-blue-200 dark:border-blue-700 shadow-md' 
-                      : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700'
+                      ? 'bg-blue-100 dark:bg-blue-900/50 text-blue-800 dark:text-blue-200 border-blue-200 dark:border-blue-700 shadow-md' 
+                      : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 border-gray-200 dark:border-gray-700'
                     }
                   `}
                 >
@@ -153,7 +162,7 @@ export default function Taskbar({ openWindows, activeWindow, onWindowClick, onBa
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
             onClick={toggleTheme}
-            className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-all duration-200 relative overflow-hidden"
+            className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-all duration-200 relative overflow-hidden border border-transparent hover:border-gray-200 dark:hover:border-gray-700"
           >
             <AnimatePresence mode="wait">
               {theme === 'light' ? (
@@ -187,7 +196,7 @@ export default function Taskbar({ openWindows, activeWindow, onWindowClick, onBa
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.95 }}
                 onClick={() => setShowLanguageSwitcher(!showLanguageSwitcher)}
-                className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors duration-200"
+                className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors duration-200 border border-transparent hover:border-gray-200 dark:hover:border-gray-700"
               >
                 <Globe className="w-4 h-4" />
               </motion.button>
@@ -219,7 +228,7 @@ export default function Taskbar({ openWindows, activeWindow, onWindowClick, onBa
           {/* Clock */}
           <motion.div 
             whileHover={{ scale: 1.05 }}
-            className="flex items-center space-x-1 px-2 py-1 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200"
+            className="flex items-center space-x-1 px-2 py-1 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors duration-200 border border-transparent hover:border-gray-200 dark:hover:border-gray-700"
           >
             <Clock className="w-4 h-4" />
             <span className="text-sm font-medium">{currentTime}</span>
@@ -247,10 +256,10 @@ export default function Taskbar({ openWindows, activeWindow, onWindowClick, onBa
                     setShowMobileMenu(false);
                   }}
                   className={`
-                    w-full p-3 rounded-lg text-left font-medium transition-all duration-200
+                    w-full p-3 rounded-lg text-left font-medium transition-all duration-200 border
                     ${activeWindow === windowId 
-                      ? 'bg-blue-100 dark:bg-blue-900/50 text-blue-800 dark:text-blue-200 border border-blue-200 dark:border-blue-700' 
-                      : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700'
+                      ? 'bg-blue-100 dark:bg-blue-900/50 text-blue-800 dark:text-blue-200 border-blue-200 dark:border-blue-700' 
+                      : 'bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 border-gray-200 dark:border-gray-700'
                     }
                   `}
                 >
